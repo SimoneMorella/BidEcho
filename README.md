@@ -21,7 +21,7 @@ It is fully animated through CSS keyframes and responsive on every device.
 
 The media-queries in particular were really challenging to write and I learned a lot through it about fluid design :)
 
-Here the link to the (website video)[https://youtu.be/DocdivknjGs?si=owBKf1uHgrOQu03_] on Youtube.
+Here the link to the [website video](https://youtu.be/DocdivknjGs?si=owBKf1uHgrOQu03_) on Youtube.
 
 In the next days I will host the website somewhere for everyone to try!
 
