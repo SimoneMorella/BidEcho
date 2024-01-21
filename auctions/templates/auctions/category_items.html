@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+{% block body %}
+<section class="active-listing">
+    <div class="listing-title cat-title">
+        <h1><span class="brand">BidEcho</span>: {{ category_name }}</h1>
+        <p>Interested in the <span class="cat-name">{{ category_name }}</span> category? Here the list of the active products.</p>
+    </div>
+    <div class="change-row-box">
+        Products in a row:
+        <div class="change-row-btns">
+            <div class="row-btn three">3</div>
+            <div class="row-btn four">4</div>
+            <div class="row-btn five">5</div>
+        </div>
+    </div>
+    <div class="items-container">
+        {% for item in category_items %}
+        <a href="{% url 'item' item.id item.title %}" class="itemlink">
+            <div class="item">
+                <div class="item-img-box">
+                    <img src="{{item.url_image}}" alt="image" >
+                </div>
+                <div class="item-info-box">
+                    <div class="title-category">
+                        {{item.title}}
+                        <div class="item-category">
+                            {{item.category}}
+                        </div>
+                    </div>
+                    <div class="item-bid">
+                        ${{item.current_bid}}
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <p class="no-items">No item to display. Try reloading.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

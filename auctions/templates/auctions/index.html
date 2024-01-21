@@ -1,0 +1,76 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <section class="hero-banner">
+        <div class="intro">
+            <div class="intro-title">
+                <h1 class="title">BidEcho<span class="animate" style="--i:1;"></span></h1>
+            </div>
+            <div class="intro-description">
+                <p class="slogan">Find. Bid. Echo. Turning Bids into Extraordinary Finds.<span class="animate" style="--i:2;"></span></p>
+            </div>
+            <div class="btn-box">
+                <a href="{% url 'index' %}" class="btn bid">Bid</a>
+                <a href="" class="btn sell">Sell</a>
+                <span class="animate" style="--i:3;"></span>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="{% static 'auctions/hero-image2.png' %}" alt="hero-image" id="hero-image">
+            <span class="animate" style="--i:5;"></span>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class='bx bxl-facebook-square' ></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
+            <a href="#"><i class='bx bxl-tiktok' ></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-reddit' ></i></a>
+            <span class="animate" style="--i:5;"></span>
+        </div>
+    </section>
+
+    <section class="active-listing" id="active">
+        <div class="listing-title">
+            <h1>Active Listings</h1>
+            <p>The echo is strong here. Start bidding, your next win is awaiting.</p>
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="item-message">{{ message }}</div>
+        {% endfor %}
+        {% endif%}
+        <div class="change-row-box">
+            Products in a row:
+            <div class="change-row-btns">
+                <div class="row-btn three">3</div>
+                <div class="row-btn four">4</div>
+                <div class="row-btn five">5</div>
+            </div>
+        </div>
+        <div class="items-container">
+            {% for item in items %}
+            <a href="{% url 'item' item.id item.title %}" class="itemlink">
+                <div class="item">
+                    <div class="item-img-box">
+                        <img src="{{item.url_image}}" alt="image" >
+                    </div>
+                    <div class="item-info-box">
+                        <div class="title-category">
+                            {{item.title}}
+                            <div class="item-category">
+                                {{item.category}}
+                            </div>
+                        </div>
+                        <div class="item-bid">
+                            ${{item.current_bid}}
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <p class="no-items">No item to display. Try reloading.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

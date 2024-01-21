@@ -1,0 +1,12 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <section class="error-sect">
+        <h2 class="ops">OOPS..</h2>
+        <h1 class="error"><span class="four">4</span>0<span class="four">4</span></h1>
+        <div class="error-description">
+            <p class="description">It seems we can't find the item or page you are looking for 😞</p>
+            <a href="{% url 'index' %}" class="return-btn">Go back</a>
+        </div>
+    </section>
+{% endblock %}

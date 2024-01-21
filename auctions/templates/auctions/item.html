@@ -1,0 +1,109 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<section class="item-page">
+    <div class="upper-item-page">
+        <div class="item-img-box">
+            <img src="{{item.url_image}}" alt="image">
+        </div>
+        <div class="item-info-box">
+            <div class="item-main-title">
+                <h3 class="ttl">{{ item.title }}</h3>
+                <div class="subtitle-ctgr">{{item.category}}</div>
+            </div>
+            <div class="item-main-info">
+                <div class="item-seller"><span>Owner: </span>{{item.owner}}</div>
+                <div class="item-description"><span>Description: </span>{{item.description}}</div>
+                <div class="item-current-price"><span>Currently at:</span>${{item.current_bid}}</div>
+                {% if user.is_authenticated and item.active == True %}
+                <form action="{% url 'add_to_watchlist' item.id item.title %}" method="post" class="item-add-watchlist">
+                    {% csrf_token %}
+                    {%if is_in_watchlist == True %}
+                        <p>Remove from watchlist:</p>
+                        <button type="submit">-</button>
+                    {% else %}
+                        <p>Add to watchlist:</p>
+                        <button type="submit">+</button>
+                    {% endif %}
+                </form>
+                {% endif %}
+                <div class="item-notify-box">
+                    {% if item.active == False %}
+                    <div class="winner-notify-box">
+                        <h3 class="final-status">SOLD</h3>
+                        {% if winner == user %}
+                        <p class="final-status-message">Congratulations! You won this item!</p>
+                        {% else %}
+                        <p class="final-status-message">{{ winner }} won the item! </p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if messages %}
+                    <div class="message-notify-box">
+                        {% for message in messages %}
+                        {{ message }}
+                        {% endfor %}
+                    </div>
+                    {% endif%}
+                </div>
+            </div>
+        </div>
+        <div class="item-bid-box">
+            {% if user == item.owner and item.active == True %}
+            <form action="{% url 'close_bid' item.id item.title %}" method="post" id="close-form">
+                {% csrf_token %}
+                <button type="submit">Close bid</button>
+            </form>
+            {% endif %}
+            {% if user == item.owner and item.active == True %}
+            <div class="owner-notify-box">
+                It seems like you own this item. You can't make offers on your property!
+            </div>
+            {% else %}
+                {% if bid_form and item.active == True %}
+                <form action="{% url 'bid_on_item' item.id item.title %}" method="post" id="bid-form">
+                {% csrf_token %}
+                {{ bid_form }}
+                <button type="submit">Bid</button>
+                </form>
+                {% else %}
+                <div class="closed-bid">
+                    The item has probably been sold. What a shame isn't it? Try with other items, we only have the best!
+                </div>
+                {% endif %}
+            {% endif %}
+            <div class="info-delivery">
+                Once you made your offer the seller will be notified and can decide to close the auction.
+                If you win the item we will take care of the delivery for you.
+                We are as fast as the wind!
+            </div>
+        </div>
+    </div>
+    <div class="below-item-page">
+        {% if user.is_authenticated and item.active == True %}
+            <form action="{%url 'add_comment' item.id item.title %}" method="post">
+                <h3>Comment</h3>
+                {% csrf_token %}
+                {{ comment_form }}
+                <button type="submit">Post</button>
+            </form>
+            {% endif %}
+            <div class="item-comments-box">
+                {% for comment in comments %}
+                <div class="item-comment">
+                    <div class="comment-title">
+                        <div>{{ comment.user }}</div>
+                        <div>{{comment.created_at}}</div>
+                    </div>
+                    <div class="comment-text">{{comment.text}}</div>
+                </div>
+                {% empty %}
+                No comments at the moment.
+                {% endfor %}
+            </div>
+    </div>
+</section>
+{% endblock %}
+
+

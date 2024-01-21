@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% load static %}
+{% block body %}
+    <section class="category-page">
+        <div class="category-list">
+            {% for category in categories %}
+            <div class="category-btn">
+                {{category.category}}
+            </div>
+            {% endfor %}
+            <span class="animate" style="--i:2;"></span>
+        </div>
+        <div class="category-showcase">
+            <div class="category-title">
+                <div class="cat-title-text">
+                    <span>BidEcho</span>: <span class="category-name">Categories</span>
+                    <!-- <span class="animate" style="--i:1;"></span> -->
+                </div>
+                <div class="category-text">
+                    Click on a category above to start browsing.
+                    <!-- <span class="animate" style="--i:2;"></span> -->
+                </div>
+                <a hidden class="category-link"><i class='bx bx-chevron-right'></i></a>
+            </div>
+            <div class="category-img">
+                <img src="{% static 'auctions/category/category-general.png' %}" alt="">
+            </div>
+        </div>
+    </section>
+{% endblock %}

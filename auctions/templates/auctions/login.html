@@ -1,0 +1,52 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <section class="login-sect">
+        <div class="left-banner">
+            <div class="login-title">
+                <h1 class="title">BidEcho<span class="animate" style="--i:1;"></span></h1>
+            </div>
+            <div class="login-image-box">
+                    <img src="{% static 'auctions/login-image_preview_rev_1.png' %}" alt="pic-echo-theme">
+                    <span class="animate" style="--i:3;"></span>
+            </div> 
+        </div>
+        <div class="right-login">
+            <div class="login-text">
+                <h2 class="text">Login</h2>
+                {% if message %}
+                    <div class="login-notification">{{ message }}</div>
+                {% endif %}
+            </div>
+            <div class="above-form">
+                <div class="shortcut-buttons">
+                    <a href="#" class="googlebutton"><img src="{% static 'auctions/google-color-icon.svg' %}" alt="g-icon"> CONTINUE WITH GOOGLE</a>
+                    <a href="#" class="fbbutton"><i class='bx bxl-facebook-circle' ></i> CONTINUE WITH FACEBOOK</a>
+                </div>              
+            </div>
+            <hr class="or-break">
+            <div class="login-form">
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input  class="form-control" type="text" required name="username">
+                        <label for="username" class="label">Username</label>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" required>
+                        <label for="password" class="label">Password</label>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Login">
+                </form>
+            </div>
+            <hr class="second-break">
+            <div class="under-login">
+                <div class="register-link">
+                    <div class="question-text">Don't have an account?</div>
+                    <a href="{% url 'register' %}" class="register-button">SIGN UP FOR BIDECHO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

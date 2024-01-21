@@ -1,0 +1,20 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+{% block body %}
+
+<section class="enter-item-sect">
+    <form action="{% url 'listingCreation' %}" method="post">
+        <h2><span class="title">BidEcho</span>: Put the item in auction.</h2>
+        {% csrf_token %}
+        <div class="inner-form">
+            {{ form.as_div }}
+        </div>
+
+        <input type="submit" value="Insert item">
+    </form>
+    <div class="sell-box-image">
+        <img src="{% static 'auctions/list-item-transparent.png' %}" alt="roadmap for listing">
+    </div>
+</section>
+
+{% endblock %}
